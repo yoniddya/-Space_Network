@@ -1,7 +1,6 @@
 from space_network_lib import *
 import time
 
-from space_network_lib import *
 class Satellite(SpaceEntity):
     def __init__(self ,name ,earth_from_distance ):
         super().__init__(name ,earth_from_distance)
@@ -28,3 +27,5 @@ def  attempt_transmission(packet : Packet):
             time.sleep(2)
         except DataCorruptedError:
             print("data corrupted,retrying...")
+
+attempt_transmission(massege)
