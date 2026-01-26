@@ -15,8 +15,10 @@ Sat2 = Satellite("Sat2" ,200 )
 massege = Packet("helo world" ,Sat1  ,Sat2)
 network.send(massege)
 
+class MyCustomError(Exception):
+    pass
 # "שלב 2"
-network = SpaceNetwork(level= 2)
+network = SpaceNetwork(level= 3)
 def  attempt_transmission(packet : Packet):
     while True:
         try:
@@ -28,4 +30,15 @@ def  attempt_transmission(packet : Packet):
         except DataCorruptedError:
             print("data corrupted,retrying...")
 
+        except LinkTerminatedError:
+            print("lost Link")
+            raise MyCustomError("BrokenConnectionError")
+
+        except OutOfRangeError:
+            print("Target out of range")
+            raise MyCustomError("BrokenConnectionError")
+
 attempt_transmission(massege)
+
+
+
